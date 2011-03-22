@@ -13,7 +13,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "mv-sqlite"
-  gem.homepage = "http://github.com/vprokochuk256/mv-sqlite"
+  gem.homepage = "http://github.com/vprokopchuk256/mv-sqlite"
   gem.license = "MIT"
   gem.summary = "Migration Validators project sqlite driver"
   gem.description = "Migration Validators project sqlite driver"
