@@ -5,6 +5,7 @@ require 'mv-test'
 require 'mv-sqlite'
 require 'shoulda'
 require 'factory_girl'
+require 'pry-byebug'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.

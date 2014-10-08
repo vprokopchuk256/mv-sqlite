@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem "sqlite3"
-gem "mv-core", :git => "git@github.com:vprokopchuk256/mv-core.git"
+gem "mv-core", path: '../mv-core'
 
 
 group :development do
@@ -9,8 +9,9 @@ group :development do
 end
 
 group :test do
-  gem "rspec"
+  gem "rspec", '>= 3.1.0'
   gem 'factory_girl'
   gem 'shoulda'
-  gem 'mv-test'
+  gem 'pry-byebug'
+  gem 'mv-test', path: '../mv-test'
 end
