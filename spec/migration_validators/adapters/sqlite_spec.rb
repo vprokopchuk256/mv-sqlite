@@ -134,8 +134,8 @@ describe MigrationValidators::Adapters::Sqlite, :type => :mv_test do
         end
 
         with_option :as => :index do
-          it { is_expected.to deny.insert.at_least_one(1,1).with_message(/UNIQUE constraint failed/) }
-          it { is_expected.to deny.update(1).with_initial(1,2).and_message(/UNIQUE constraint failed/) }
+          it { is_expected.to deny.insert.at_least_one(1,1).with_message(/is not unique/) }
+          it { is_expected.to deny.update(1).with_initial(1,2).and_message(/is not unique/) }
           it { is_expected.to allow.insert(1,2,3) }
           it { is_expected.to allow.update(1).with_initial(2) }
         end
@@ -143,11 +143,11 @@ describe MigrationValidators::Adapters::Sqlite, :type => :mv_test do
     end
 
     for_integer_column :validates => {:uniqueness => {:as => :index, :message => "Some error message"}, :inclusion => {:in => 1..9, :as => :trigger, :message => "Some error message"}} do
-      it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/UNIQUE constraint failed/) }
+      it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/is not unique/) }
       it { is_expected.to deny(10).with_initial(8).and_message(/Some error message/) }
 
       with_change :inclusion => false do
-        it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/UNIQUE constraint failed/) }
+        it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/is not unique/) }
         it { is_expected.to allow(10) }
       end
 
@@ -159,11 +159,11 @@ describe MigrationValidators::Adapters::Sqlite, :type => :mv_test do
     end
 
     for_integer_column :validates => {:uniqueness => {:as => :index, :message => "Some error message"}, :exclusion => {:in => 4..9, :as => :trigger, :message => "Some error message"}} do
-      it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/UNIQUE constraint failed/) }
+      it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/is not unique/) }
       it { is_expected.to deny(9).with_initial(10).and_message(/Some error message/) }
 
       with_change :exclusion => false do
-        it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/UNIQUE constraint failed/) }
+        it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/is not unique/) }
         it { is_expected.to allow(9) }
       end
 
@@ -175,11 +175,11 @@ describe MigrationValidators::Adapters::Sqlite, :type => :mv_test do
     end
 
     for_integer_column :validates => {:uniqueness => {:as => :index, :message => "Some error message"}, :presence => {:as => :trigger, :message => "Some error message"}} do
-      it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/UNIQUE constraint failed/) }
+      it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/is not unique/) }
       it { is_expected.to deny(nil).with_initial(10).and_message(/Some error message/) }
 
       with_change :presence => false do
-        it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/UNIQUE constraint failed/) }
+        it { is_expected.to deny.at_least_one(1,1).with_initial(1, 2).and_message(/is not unique/) }
         it { is_expected.to allow(nil) }
       end
 
@@ -674,11 +674,11 @@ describe MigrationValidators::Adapters::Sqlite, :type => :mv_test do
     end
 
     for_string_column :validates => {:uniqueness => {:as => :index}, :length => {:in => 4..9, :as => :trigger, :message => "Some error message"}} do
-      it { is_expected.to deny.at_least_one('1234','1234').with_initial('1234', '12345').and_message(/UNIQUE constraint failed/) }
+      it { is_expected.to deny.at_least_one('1234','1234').with_initial('1234', '12345').and_message(/is not unique/) }
       it { is_expected.to deny('123').with_initial('1234').and_message(/Some error message/) }
 
       with_change :length => false do
-        it { is_expected.to deny.at_least_one('1234','1234').with_initial('1234', '12345').and_message(/UNIQUE constraint failed/) }
+        it { is_expected.to deny.at_least_one('1234','1234').with_initial('1234', '12345').and_message(/is not unique/) }
         it { is_expected.to allow('123') }
       end
 
