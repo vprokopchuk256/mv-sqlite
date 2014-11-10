@@ -1,3 +1,6 @@
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-sqlite/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Build Status](https://travis-ci.org/vprokopchuk256/mv-sqlite.svg)](https://travis-ci.org/vprokopchuk256/mv-sqlite)
+
 # Introduction
 
 mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
@@ -212,9 +215,4 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
 Copyright (c) 2011 Valeriy Prokopchuk. See LICENSE.txt for
 further details.
-
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-sqlite/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
