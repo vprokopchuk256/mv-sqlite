@@ -1,5 +1,7 @@
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-sqlite/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Build Status](https://travis-ci.org/vprokopchuk256/mv-sqlite.svg)](https://travis-ci.org/vprokopchuk256/mv-sqlite)
+[![Coverage Status](https://coveralls.io/repos/vprokopchuk256/mv-sqlite/badge.png?branch=master)](https://coveralls.io/r/vprokopchuk256/mv-sqlite?branch=master)
+[![Gem Version](https://badge.fury.io/rb/mv-sqlite.svg)](http://badge.fury.io/rb/mv-sqlite)
 
 # Introduction
 
