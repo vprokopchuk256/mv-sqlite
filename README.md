@@ -5,6 +5,8 @@
 
 mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
 
+**WARNING:** `change` method is not supported in migrations yet. You should rather use `up` && `down` methods
+
 # Validators
 
 ### uniqueness
