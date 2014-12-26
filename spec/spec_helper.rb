@@ -3,8 +3,6 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'rspec'
 require 'mv-test'
 require 'mv-sqlite'
-require 'shoulda'
-require 'factory_girl'
 require 'pry-byebug'
 
 # Requires supporting files with custom matchers and macros, etc,
