@@ -4,7 +4,7 @@ module Mv
       module Validation
         module ExclusionDecorator
           def available_as 
-            [:trigger]
+            super.reject{ |as| as.to_sym == :check }
           end
         end
       end
