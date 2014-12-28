@@ -2,7 +2,7 @@ require 'spec_helper'
 
 require 'mv/sqlite/validation/base_decorator'
 
-describe Mv::Sqlite::Core::Validation::ExclusionDecorator do
+describe Mv::Sqlite::Validation::BaseDecorator do
   before do
     Mv::Core::Validation::Base.send(:prepend, described_class)
   end
