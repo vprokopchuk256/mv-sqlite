@@ -33,7 +33,7 @@ describe 'Delete validation scenarios' do
       end
 
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
+        expect_any_instance_of(Mv::Sqlite::Constraint::Builder::Trigger).to receive(:delete).once
         subject
       end
     end
@@ -65,7 +65,7 @@ describe 'Delete validation scenarios' do
       end
 
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
+        expect_any_instance_of(Mv::Sqlite::Constraint::Builder::Trigger).to receive(:delete).once
         subject
       end
     end
@@ -97,7 +97,7 @@ describe 'Delete validation scenarios' do
       end
 
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
+        expect_any_instance_of(Mv::Sqlite::Constraint::Builder::Trigger).to receive(:delete).once
         subject
       end
     end
@@ -126,7 +126,7 @@ describe 'Delete validation scenarios' do
       end
 
       it "creates new trigger constraint" do
-        expect_any_instance_of(Mv::Core::Constraint::Builder::Trigger).to receive(:delete).once
+        expect_any_instance_of(Mv::Sqlite::Constraint::Builder::Trigger).to receive(:delete).once
         subject
       end
     end
