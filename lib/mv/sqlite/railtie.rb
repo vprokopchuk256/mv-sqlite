@@ -1,4 +1,3 @@
-require 'mv/sqlite/validation/base_decorator'
 require 'mv/sqlite/active_record/connection_adapters/sqlite3_adapter_decorator'
 
 module Mv
