@@ -18,20 +18,20 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   validate uniqueness of the column 'column_name':
   
   ```ruby
-  validate_column :table_name, :column_name, uniqueness: true
+  validates :table_name, :column_name, uniqueness: true
   ```
 
   define validation as trigger with spefified failure message: 
 
   ```ruby
-  validate_column :table_name, :column_name, 
-                  uniqueness: { message: 'Error message', as: :trigger }
+  validates :table_name, :column_name, 
+            uniqueness: { message: 'Error message', as: :trigger }
   ```
 
   define validation as unique index: 
 
   ```ruby
-  validate_column :table_name, :column_name, uniqueness: { as: :index }
+  validates :table_name, :column_name, uniqueness: { as: :index }
   ```
 
   all above are available in a create and change table blocks: 
@@ -44,7 +44,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   ```ruby
   change :table_name do |t|
-     t.change :column_name, :string, :validates: { uniqueness: false }
+     t.change :column_name, :string, validates: { uniqueness: false }
   end
   ```
 
@@ -66,22 +66,22 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   column value length should be more than 4 symbols and less than 9. Otherwise 'Wrong length message' error will be raised: 
 
   ```ruby
-  validate_column :table_name, :column_name, 
-                               length: { in: 5..8, 
-                                         message: 'Wrong length message' }
+  validates :table_name, :column_name, 
+                         length: { in: 5..8, 
+                                   message: 'Wrong length message' }
   ```
 
   allow `NULL`:
 
   ```ruby
-  validate_column :table_name, :column_name, 
-                               length: { is: 3, allow_nil: true}
+  validates :table_name, :column_name, 
+                         length: { is: 3, allow_nil: true}
   ```
 
   allow blank values: 
 
   ```ruby
-  validate_column :table_name, :column_name, 
+  validates :table_name, :column_name, 
                          length: { maximum: 3, 
                                    too_long: 'Value is longer than 3 symbols' } 
   ```
@@ -110,15 +110,15 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   valid values array:
 
   ```ruby
-  validate_column :table_name, :column_name, inclusion: { in: [1, 2, 3] }
+  validates :table_name, :column_name, inclusion: { in: [1, 2, 3] }
   ```
 
   with failure message specified:
 
   ```ruby
-  validate_column :table_name, :column_name, 
-  inclusion: { in: [1, 2, 3], 
-               message: "Column 'column_name' should be equal to 1 or 2 or 3" }
+  validates :table_name, :column_name, 
+              inclusion: { in: [1, 2, 3], 
+              message: "Column 'column_name' should be equal to 1 or 2 or 3" }
   ```
 
   Options:
@@ -138,25 +138,24 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   exclude 1, 2, and 3:
 
   ```ruby
-  validate_column :table_name, :column_name, exclusion: { in: [1, 2, 3] }
+  validates :table_name, :column_name, exclusion: { in: [1, 2, 3] }
   ```
 
   exclude values with specified failure message: 
 
   ```ruby
-  validate_column :table_name, :column_name, 
+  validates :table_name, :column_name, 
    exclusion: { 
       in: [1, 2, 3], 
-      :message => "Column 'column_name' should not  be equal to 1 or 2 or 3" 
+      message: "Column 'column_name' should not  be equal to 1 or 2 or 3" 
    }
   ```
 
   performs verification on update only:
 
   ```ruby
-  validate_column :table_name, :column_name, 
-                               exclusion: { in: [1, 2, 3], 
-                                            on: :update }
+  validates :table_name, :column_name, exclusion: { in: [1, 2, 3], 
+                                                    on: :update }
   ```
 
   Options:
@@ -177,20 +176,20 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   simple presence validator:
 
   ```ruby
-  validate_column :table_name, :column_name, presence: true
+  validates :table_name, :column_name, presence: true
   ```
 
   with failure message: 
 
   ```ruby
-  validate_column :table_name, :column_name, 
-                  presence: { message: 'value should not be empty' }
+  validates :table_name, :column_name, 
+            presence: { message: 'value should not be empty' }
   ```
 
   performs verification only when new record is inserted:
 
   ```ruby
-  validate_column :table_name, :column_name, 
+  validates :table_name, :column_name, 
                   presence: { message: 'value should not be empty', 
                               on: :create }
   ```
@@ -217,7 +216,7 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
 ## Copyright
 
-Copyright (c) 2011 Valeriy Prokopchuk. See LICENSE.txt for
+Copyright (c) 2015 Valeriy Prokopchuk. See LICENSE.txt for
 further details.
 
 
