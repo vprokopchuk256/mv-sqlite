@@ -7,8 +7,6 @@
 
 mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
 
-**WARNING:** `change` method is not supported in migrations yet. You should rather use `up` && `down` methods
-
 # Validators
 
 ### uniqueness
@@ -192,6 +190,41 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   validates :table_name, :column_name, 
                   presence: { message: 'value should not be empty', 
                               on: :create }
+  ```
+
+  Options:
+
+  * `:message` - message that should be shown if validation failed
+  * `:on` -  validation event. Possible values: `[:save, :update, :create]`. Default value: `:save`
+  * `:create_tigger_name` - Name of the 'before insert' trigger
+  * `:update_tigger_name` - Name of the 'before update' trigger
+  * `:allow_nil` - ignore validation for `nil` values. Default value: `false`
+  * `:allow_blank` - ignore validation for blank values. Default value: `false`
+  * `:as` - defines the way how constraint will be implemented. Possible values: `[:trigger]`
+
+### absence
+
+  Examples: 
+
+  simple absence validator:
+
+  ```ruby
+  validates :table_name, :column_name, absence: true
+  ```
+
+  with failure message: 
+
+  ```ruby
+  validates :table_name, :column_name, 
+            absence: { message: 'value should be empty' }
+  ```
+
+  performs verification only when new record is inserted:
+
+  ```ruby
+  validates :table_name, :column_name, 
+                  absence: { message: 'value should be empty', 
+                             on: :create }
   ```
 
   Options:
