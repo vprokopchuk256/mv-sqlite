@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gem 'railties', '~> 4.1'
 gem "sqlite3", '~> 1.3'
-gem "mv-core", git: 'git@github.com:vprokopchuk256/mv-core.git', branch: 'master'
+gem "mv-core", path: '../mv-core'
 
 group :development do
   gem "jeweler", '~> 2.0'
