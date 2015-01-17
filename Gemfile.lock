@@ -1,11 +1,3 @@
-PATH
-  remote: ../mv-core
-  specs:
-    mv-core (1.0.1)
-      activerecord (~> 4.1)
-      i18n
-      railties (~> 4.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -114,11 +106,11 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mv-test (1.0.0)
-      activerecord (>= 4.1.6)
-      rspec (>= 3.1.0)
-      rspec-its (>= 1.0.1)
-    nenv (0.1.1)
+    mv-core (2.0.0)
+      activerecord (~> 4.1)
+      i18n (~> 0.7)
+      railties (~> 4.1)
+    nenv (0.2.0)
     netrc (0.10.2)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
@@ -202,14 +194,13 @@ PLATFORMS
 
 DEPENDENCIES
   coveralls
-  guard-rspec
+  guard-rspec (~> 4.5)
   jeweler (~> 2.0)
-  mv-core!
-  mv-test (~> 1.0)
+  mv-core (~> 2.0)
   pry-byebug
   railties (~> 4.1)
   rb-fsevent
   rspec (~> 3.1)
-  rspec-its
+  rspec-its (~> 1.1)
   sqlite3 (~> 1.3)
   terminal-notifier-guard
