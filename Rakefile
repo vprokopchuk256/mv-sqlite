@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "mv-sqlite"
   gem.homepage = "http://github.com/vprokopchuk256/mv-sqlite"
   gem.license = "MIT"
-  gem.summary = "Migration Validators project. SQLite driver"
-  gem.description = "Migration Validators project sqlite driver"
+  gem.description = "SQLite constraints in migrations similiar to ActiveRecord validations"
+  gem.summary = "SQLite constraints in migrations similiar to ActiveRecord validations"
   gem.email = "vprokopchuk@gmail.com"
   gem.authors = ["Valeriy Prokopchuk"]
   gem.files = Dir.glob('lib/**/*.rb')

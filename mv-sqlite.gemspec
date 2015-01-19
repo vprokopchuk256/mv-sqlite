@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Valeriy Prokopchuk"]
-  s.date = "2015-01-17"
-  s.description = "Migration Validators project sqlite driver"
+  s.date = "2015-01-19"
+  s.description = "SQLite constraints in migrations similiar to ActiveRecord validations"
   s.email = "vprokopchuk@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/vprokopchuk256/mv-sqlite"
   s.licenses = ["MIT"]
   s.rubygems_version = "2.4.4"
-  s.summary = "Migration Validators project. SQLite driver"
+  s.summary = "SQLite constraints in migrations similiar to ActiveRecord validations"
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
