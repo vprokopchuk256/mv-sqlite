@@ -9,6 +9,7 @@ require 'mv/sqlite/validation/builder/trigger/length'
 require 'mv/sqlite/validation/builder/trigger/presence'
 require 'mv/sqlite/validation/builder/trigger/absence'
 require 'mv/sqlite/validation/builder/trigger/uniqueness'
+require 'mv/sqlite/validation/builder/trigger/custom'
 
 ActiveSupport.on_load(:mv_core) do
 
@@ -24,7 +25,8 @@ ActiveSupport.on_load(:mv_core) do
     Mv::Core::Validation::Length      => Mv::Sqlite::Validation::Builder::Trigger::Length,
     Mv::Core::Validation::Presence    => Mv::Sqlite::Validation::Builder::Trigger::Presence,
     Mv::Core::Validation::Absence     => Mv::Sqlite::Validation::Builder::Trigger::Absence,
-    Mv::Core::Validation::Uniqueness  => Mv::Sqlite::Validation::Builder::Trigger::Uniqueness
+    Mv::Core::Validation::Uniqueness  => Mv::Sqlite::Validation::Builder::Trigger::Uniqueness,
+    Mv::Core::Validation::Custom      => Mv::Sqlite::Validation::Builder::Trigger::Custom
   )
 end
 
