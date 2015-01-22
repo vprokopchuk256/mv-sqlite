@@ -1,11 +1,10 @@
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/vprokopchuk256/mv-sqlite/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Build Status](https://travis-ci.org/vprokopchuk256/mv-sqlite.svg)](https://travis-ci.org/vprokopchuk256/mv-sqlite)
 [![Coverage Status](https://coveralls.io/repos/vprokopchuk256/mv-sqlite/badge.png?branch=master)](https://coveralls.io/r/vprokopchuk256/mv-sqlite?branch=master)
 [![Gem Version](https://badge.fury.io/rb/mv-sqlite.svg)](http://badge.fury.io/rb/mv-sqlite)
 
 # Introduction
 
-mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core)
+mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core). Allows RoR developer to define database constraints in a familiar ActiveRecord validations manner
 
 # Validators
 
@@ -14,12 +13,12 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   Examples:
 
   validate uniqueness of the column 'column_name':
-  
+
   ```ruby
   validates :table_name, :column_name, uniqueness: true
   ```
 
-  define validation as trigger with spefified failure message: 
+  define validation as trigger with specified failure message:
 
   ```ruby
   validates :table_name, :column_name, 
@@ -42,7 +41,15 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   ```ruby
   change :table_name do |t|
-     t.change :column_name, :string, validates: { uniqueness: false }
+     t.change :column_name, :string, :validates: { uniqueness: false }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, uniqueness: true
   end
   ```
 
@@ -59,17 +66,17 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
 ### length
 
-  Examples:
+  Examples: 
 
   column value length should be more than 4 symbols and less than 9. Otherwise 'Wrong length message' error will be raised: 
 
-  ```ruby
+ ```ruby 
   validates :table_name, :column_name, 
                          length: { in: 5..8, 
                                    message: 'Wrong length message' }
-  ```
+ ```
 
-  allow `NULL`:
+ allow `NULL`:
 
   ```ruby
   validates :table_name, :column_name, 
@@ -80,8 +87,34 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   ```ruby
   validates :table_name, :column_name, 
-                         length: { maximum: 3, 
-                                   too_long: 'Value is longer than 3 symbols' } 
+                        length: { maximum: 3, 
+                                  too_long: 'Value is longer than 3 symbols' } 
+  ```
+  
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, validates: { length: { is: 3, allow_nil: true} }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :string, validates: { length: { is: 3 } }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :string_3, length: 3
+    t.string :string_from_1_to_3, length: 1..3,
+    t.string :string_1_or_3, length: [1, 3]
+    t.string :string_4, validates: { length: 4 }
+    t.string :string_4_in_trigger: length: { is: 4, as: :trigger }
+  end
   ```
 
   Options:
@@ -105,18 +138,45 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   Examples:
 
-  valid values array:
+  Examples: 
+
+  valid values array: 
 
   ```ruby
   validates :table_name, :column_name, inclusion: { in: [1, 2, 3] }
   ```
 
-  with failure message specified:
+  with failure message specified: 
 
   ```ruby
   validates :table_name, :column_name, 
-              inclusion: { in: [1, 2, 3], 
-              message: "Column 'column_name' should be equal to 1 or 2 or 3" }
+  inclusion: { in: [1, 2, 3], 
+               message: "Column 'column_name' should be equal to 1 or 2 or 3" }
+  ```
+
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.integer :column_name, validates: { inclusion: { in: 1..3 } }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :integer, validates: { inclusion: { in: 1..3 } }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :str_or_str_1, inclusion: ['str', 'str1']
+    t.string :from_str_to_str_1, inclusion: 'str'..'str1'
+    t.string :str_or_str_1_in_trigger, inclusion: { in: ['str', 'str1'], 
+                                                    as: :trigger}
+  end
   ```
 
   Options:
@@ -133,27 +193,46 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   
 ### exclusion
 
-  exclude 1, 2, and 3:
+  Examples:
+
+  exclude 1, 2, and 3: 
 
   ```ruby
   validates :table_name, :column_name, exclusion: { in: [1, 2, 3] }
   ```
 
-  exclude values with specified failure message: 
+  the same with failure message: 
 
   ```ruby
   validates :table_name, :column_name, 
-   exclusion: { 
+    exclusion: {
       in: [1, 2, 3], 
-      message: "Column 'column_name' should not  be equal to 1 or 2 or 3" 
-   }
+      message: "Column 'column_name' should not  be equal to 1 or 2 or 3" }
   ```
 
-  performs verification on update only:
+  all above are available in a create and change table blocks: 
 
   ```ruby
-  validates :table_name, :column_name, exclusion: { in: [1, 2, 3], 
-                                                    on: :update }
+  create_table :table_name do |t|
+     t.integer :column_name, validates: { exclusion: { in: 1..3 } }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :integer, validates: { exclusion: { in: 1..3 } }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :neither_str_nor_str_1, exclusion: ['str', 'str1']
+    t.string :from_str_to_str_1, exclusion: 'str'..'str1'
+    t.string :str_or_str_1_in_trigger, exclusion: { in: ['str', 'str1'], 
+                                                    as: :trigger}
+  end
   ```
 
   Options:
@@ -171,8 +250,6 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   Examples: 
 
-  simple presence validator:
-
   ```ruby
   validates :table_name, :column_name, presence: true
   ```
@@ -181,15 +258,39 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   ```ruby
   validates :table_name, :column_name, 
-            presence: { message: 'value should not be empty' }
+                  presence: { message: 'value should not be empty' }
   ```
 
-  performs verification only when new record is inserted:
+  check when record is inserted only: 
 
   ```ruby
   validates :table_name, :column_name, 
                   presence: { message: 'value should not be empty', 
+                              as: :trigger, 
                               on: :create }
+  ```
+
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, validates: { presence: true }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :string, validates: { presence: true }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :presence_in_check, presence: true
+    t.string :presence_in_trigger, presence: { as: :trigger, on: :create }
+  end
   ```
 
   Options:
@@ -206,8 +307,6 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   Examples: 
 
-  simple absence validator:
-
   ```ruby
   validates :table_name, :column_name, absence: true
   ```
@@ -216,17 +315,98 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
   ```ruby
   validates :table_name, :column_name, 
-            absence: { message: 'value should be empty' }
+                  absence: { message: 'value should be empty' }
   ```
 
-  performs verification only when new record is inserted:
+  check when record is inserted only: 
 
   ```ruby
   validates :table_name, :column_name, 
                   absence: { message: 'value should be empty', 
-                             on: :create }
+                              as: :trigger, 
+                              on: :create }
   ```
 
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+     t.string :column_name, validates: { absence: true }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+     t.change :column_name, :string, validates: { absence: true }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :absence_in_check, absence: true
+    t.string :absence_in_trigger, absence: { as: :trigger, on: :create }
+  end
+  ```
+
+### custom (version >= 2.1 is required)
+
+  Examples: 
+
+  allows only values that equals 'word' when trimmed: 
+
+  ```ruby
+  validates :table_name, :column_name, 
+                         custom: { statement: "TRIM({column_name}) = 'word'" }
+  ```
+
+  with failure message: 
+
+  ```ruby
+  validates :table_name, :column_name, 
+    custom: { statement: "TRIM({column_name}) = 'word'", 
+              message: 'Column_name value should contain start word' }
+  ```
+
+  implemented as trigger on insert event:
+
+  ```ruby
+  validates :table_name, :column_name, 
+    custom: { statement: "TRIM({column_name}) = 'word'", 
+              message: 'Column_name value should contain start word', 
+              as: :trigger, 
+              on: :create }
+  ```
+
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :column_name, 
+            validates: { custom: { statement: "TRIM({column_name}) = 'word'"} }
+  end
+  ```
+
+  ```ruby
+  change :table_name do |t|
+    t.change :column_name, :string, 
+            validates: { custom: { statement: "TRIM({column_name}) = 'word'"} }
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  create_table :table_name do |t|
+    t.string :contains_word, custom: "TRIM({contains_word}) = 'word'"
+    t.string :contains_word_synonym, 
+             validates: "TRIM({contains_word_synonym}) = 'word'"
+    t.string :contains_word_in_trigger, 
+             custom: { statement: "TRIM({contains_word_in_trigger}) = 'word'",          as: :trigger }
+  end
+  ```
+  
   Options:
 
   * `:message` - message that should be shown if validation failed
