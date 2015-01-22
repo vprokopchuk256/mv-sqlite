@@ -136,8 +136,6 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 
 ### inclusion
 
-  Examples:
-
   Examples: 
 
   valid values array: 
