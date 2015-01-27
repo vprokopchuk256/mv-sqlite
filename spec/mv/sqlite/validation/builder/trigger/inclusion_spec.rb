@@ -6,7 +6,7 @@ describe Mv::Sqlite::Validation::Builder::Trigger::Inclusion do
   def inclusion(opts = {})
     Mv::Core::Validation::Inclusion.new(:table_name, 
                                         :column_name,
-                                        { in: [1, 5], message: 'some error message' }.merge(opts)) 
+                                        { in: [1, 5], message: 'must be included' }.merge(opts)) 
   end
 
   describe "#conditions" do
@@ -17,7 +17,7 @@ describe Mv::Sqlite::Validation::Builder::Trigger::Inclusion do
 
       it { is_expected.to eq([{
         statement: "NEW.column_name IS NOT NULL AND NEW.column_name IN (date('2001-01-01'), date('2002-02-02'))", 
-        message: 'some error message'
+        message: 'ColumnName must be included'
       }]) }
     end
 
@@ -26,7 +26,7 @@ describe Mv::Sqlite::Validation::Builder::Trigger::Inclusion do
 
       it { is_expected.to eq([{
         statement: "NEW.column_name IS NOT NULL AND NEW.column_name IN (datetime('2001-01-01 01:01:01'), datetime('2002-02-02 02:02:02'))", 
-        message: 'some error message'
+        message: 'ColumnName must be included'
       }]) }
     end
 
@@ -35,7 +35,7 @@ describe Mv::Sqlite::Validation::Builder::Trigger::Inclusion do
 
       it { is_expected.to eq([{
         statement: "NEW.column_name IS NOT NULL AND NEW.column_name IN (datetime('2001-01-01 01:01:01'), datetime('2002-02-02 02:02:02'))", 
-        message: 'some error message'
+        message: 'ColumnName must be included'
       }]) }
     end
   end
