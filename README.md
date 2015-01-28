@@ -2,11 +2,23 @@
 [![Coverage Status](https://coveralls.io/repos/vprokopchuk256/mv-sqlite/badge.png?branch=master)](https://coveralls.io/r/vprokopchuk256/mv-sqlite?branch=master)
 [![Gem Version](https://badge.fury.io/rb/mv-sqlite.svg)](http://badge.fury.io/rb/mv-sqlite)
 
-# Introduction
+# `Migration Validators` project. SQLite driver. 
 
-mv-sqlite is the SQLite driver for Migration Validators project (details here: https://github.com/vprokopchuk256/mv-core). Allows RoR developer to define database constraints in a familiar ActiveRecord validations manner
+Define validations directly in DB as SQLite constraints and integrate them into your model transparently. See [mv-core](https://github.com/vprokopchuk256/mv-core) for details. There you will be able to review high level project information. Below you can see details of the migration validations that are supported by SQLite driver.  
 
-# Validators
+#Table Of Contents
+* [Validations](#validations)
+  * [uniqueness](#uniqueness)
+  * [length](#length)
+  * [inclusion](#inclusion)
+  * [exclusion](#exclusion)
+  * [presence](#presence)
+  * [absence](#absence)
+  * [custom](#custom)
+* [Version History](#version history)
+* [Contributing](#contributing)
+
+# Validations
 
 ### uniqueness
 
@@ -516,7 +528,19 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   end
   ```
 
-### custom (version >= 2.1 is required)
+  Options:
+
+  * `message` - message that should be shown if validation failed
+  * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
+  * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
+  * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
+  * `allow_nil` - ignore validation for `nil` values. Default value: `true`
+  * `allow_blank` - ignore validation for blank values. Default value: `true`
+  * `as` - defines the way how constraint will be implemented. Possible values: `[:trigger]` Default value: `:trigger`
+
+### custom 
+
+  (version >= 2.1 is required)
 
   Examples: 
 
@@ -606,15 +630,29 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
   Options:
 
   * `:message` - message that should be shown if validation failed
-  * `:on` -  validation event. Possible values: `[:save, :update, :create]`. Default value: `:save`
-  * `:create_tigger_name` - Name of the 'before insert' trigger
-  * `:update_tigger_name` - Name of the 'before update' trigger
-  * `:allow_nil` - ignore validation for `nil` values. Default value: `false`
+  `:on`  validation event. Possible values `[:save, :update, :create]`. Default value: `:save`
+  * `:create_tigger_name` - name of the 'before insert' trigger
+  * `:update_tigger_name` - name of the 'before update' trigger
+  * `:allow_nil` - ignore validation for nil values. Default value: false
   * `:allow_blank` - ignore validation for blank values. Default value: `false`
   * `:as` - defines the way how constraint will be implemented. Possible values: `[:trigger]`
+  
+## Version History
 
-## Contributing to mv-sqlite
- 
+**(2.0.0)** (17 Jan, 2015)
+
+* Completely rewritten. Migrated to Ruby 2.0 and RoR 4
+
+**(2.1.0)** (22 Jan, 2015)
+
+* Custom validation 
+
+**(2.2.0)** (28 Jan, 2015)
+
+* Integration with ActiveRecord
+
+## Contributing
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -622,10 +660,5 @@ mv-sqlite is the SQLite driver for Migration Validators project (details here: h
 * Commit and push until you are happy with your contribution
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
-
-## Copyright
-
-Copyright (c) 2015 Valeriy Prokopchuk. See LICENSE.txt for
-further details.
 
 
