@@ -1,10 +1,11 @@
-require 'mv/sqlite/active_record/connection_adapters/sqlite3_adapter_decorator'
-
 module Mv
   module Sqlite
     class Railtie < ::Rails::Railtie
       initializer 'mv-sqlite.initialization', after: 'active_record.initialize_database' do
-        ::ActiveRecord::ConnectionAdapters::SQLite3Adapter.send(:prepend, Mv::Sqlite::ActiveRecord::ConnectionAdapters::Sqlite3AdapterDecorator)
+        if defined?(::ActiveRecord::ConnectionAdapters::SQLite3Adapter) &&
+           ActiveRecord::Base.connection.is_a?(::ActiveRecord::ConnectionAdapters::SQLite3Adapter)
+           require 'mv/sqlite/loader'
+        end
       end
     end
   end
