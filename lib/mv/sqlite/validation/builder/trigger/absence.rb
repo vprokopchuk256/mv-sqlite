@@ -6,7 +6,7 @@ module Mv
       module Builder
         module Trigger
           class Absence < Mv::Core::Validation::Builder::Absence
-            include TriggerColumn 
+            include TriggerColumn
           end
         end
       end

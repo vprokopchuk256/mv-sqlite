@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Valeriy Prokopchuk"]
-  s.date = "2015-05-29"
+  s.date = "2015-06-01"
   s.description = "SQLite constraints in migrations similiar to ActiveRecord validations"
   s.email = "vprokopchuk@gmail.com"
   s.extra_rdoc_files = [
@@ -24,15 +24,20 @@ Gem::Specification.new do |s|
     "lib/mv/sqlite/constraint/builder/trigger.rb",
     "lib/mv/sqlite/loader.rb",
     "lib/mv/sqlite/railtie.rb",
+    "lib/mv/sqlite/services/create_regexp_function.rb",
+    "lib/mv/sqlite/validation/active_model_presenter/format.rb",
+    "lib/mv/sqlite/validation/builder/format.rb",
     "lib/mv/sqlite/validation/builder/trigger/absence.rb",
     "lib/mv/sqlite/validation/builder/trigger/custom.rb",
     "lib/mv/sqlite/validation/builder/trigger/exclusion.rb",
+    "lib/mv/sqlite/validation/builder/trigger/format.rb",
     "lib/mv/sqlite/validation/builder/trigger/inclusion.rb",
     "lib/mv/sqlite/validation/builder/trigger/length.rb",
-    "lib/mv/sqlite/validation/builder/trigger/mysql_datetime_values.rb",
     "lib/mv/sqlite/validation/builder/trigger/presence.rb",
+    "lib/mv/sqlite/validation/builder/trigger/sqlite_datetime_values.rb",
     "lib/mv/sqlite/validation/builder/trigger/trigger_column.rb",
-    "lib/mv/sqlite/validation/builder/trigger/uniqueness.rb"
+    "lib/mv/sqlite/validation/builder/trigger/uniqueness.rb",
+    "lib/mv/sqlite/validation/format.rb"
   ]
   s.homepage = "http://github.com/vprokopchuk256/mv-sqlite"
   s.licenses = ["MIT"]

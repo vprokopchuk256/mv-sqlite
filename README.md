@@ -14,6 +14,7 @@ Define validations directly in DB as SQLite constraints and integrate them into 
   * [exclusion](#exclusion)
   * [presence](#presence)
   * [absence](#absence)
+  * [format](#format)
   * [custom](#custom)
 * [Version History](#version history)
 * [Contributing](#contributing)
@@ -536,6 +537,100 @@ Define validations directly in DB as SQLite constraints and integrate them into 
   * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
   * `allow_nil` - ignore validation for `nil` values. Default value: `true`
   * `allow_blank` - ignore validation for blank values. Default value: `true`
+  * `as` - defines the way how constraint will be implemented. Possible values: `[:trigger]` Default value: `:trigger`
+
+### format 
+
+  **WARNING** ```SQLite``` does NOT have default ```REGEXP``` implementation. ```mv-sqlite``` contains own implementation that is available with active record connection only. In other words everything should be ok if you access database from withing rails console or rails application or other application that uses ```activerecord``` internally. But not defined function error will be thrown when you access database direclty. You can build ```SQLite``` ```ICU``` extension to enable native ```SQLite``` ```REGEXP```. See details here: http://www.sqlite.org/src/artifact?ci=trunk&filename=ext/icu/README.txt.
+
+  Examples: 
+
+  allows only values that contains 'word' inside: 
+
+  ```ruby
+  def up
+    validates :table_name, :column_name, format: { with: /word/ }
+  end
+
+  def down
+    validates :table_name, :column_name, format: false
+  end
+  ```
+
+  with failure message: 
+
+  ```ruby
+  def up
+  validates :table_name, :column_name, 
+    format: { with: /word/, 
+              message: 'Column_name value should contain start word' }
+  end
+
+  def down
+    validates :table_name, :column_name, format: false
+  end
+  ```
+
+  implemented as trigger:
+
+  ```ruby
+  def up
+    validates :table_name, :column_name, 
+      format: { with: /word/, 
+                message: 'Column_name value should contain start word', 
+                as: :trigger }
+  end
+
+  def down
+    validates :table_name, :column_name, format: false
+  end
+  ```
+
+  all above are available in a create and change table blocks: 
+
+  ```ruby
+  def change
+    create_table :table_name do |t|
+      t.string :column_name, validates { format: { with: /word/ } }
+    end
+  end
+  ```
+
+  ```ruby
+  def up
+    change :table_name do |t|
+      t.change :column_name, :string, validates: { format: { with: /word/ } }
+    end
+  end
+
+  def down
+    change :table_name do |t|
+      t.change :column_name, :string, validates: { format: false }
+    end
+  end
+  ```
+
+  simplifications (version >= 2.1 is required):
+
+  ```ruby
+  def change
+    create_table :table_name do |t|
+      t.string :contains_word, format: /word/ 
+      t.string :contains_word_in_trigger, format: { with: /word/, 
+                                                    as: :trigger }
+    end
+  end
+  ```
+
+  Options:
+
+  * `with` - regular expression that column value should be matched to
+  * `message` - message that should be shown if validation failed
+  * `on` -  validation event. Possible values `[:save, :update, :create]`. Ignored unless `:as == :trigger`. Default value: `:save`
+  * `create_tigger_name` - Name of the 'before insert' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :create]`
+  * `update_tigger_name` - Name of the 'before update' trigger that will be created if `:as == :trigger` && `:on` in `[:save, :update]`
+  * `allow_nil` - ignore validation for `nil` values. Default value: `false`
+  * `allow_blank` - ignore validation for blank values. Default value: `false`
   * `as` - defines the way how constraint will be implemented. Possible values: `[:trigger]` Default value: `:trigger`
 
 ### custom 

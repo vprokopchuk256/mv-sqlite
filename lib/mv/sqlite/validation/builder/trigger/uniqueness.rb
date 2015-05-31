@@ -6,7 +6,7 @@ module Mv
       module Builder
         module Trigger
           class Uniqueness < Mv::Core::Validation::Builder::Uniqueness
-            include TriggerColumn 
+            include TriggerColumn
           end
         end
       end

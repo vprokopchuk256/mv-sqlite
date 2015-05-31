@@ -1,3 +1,4 @@
+require 'mv/sqlite/validation/builder/format'
 require 'mv/sqlite/validation/builder/trigger/trigger_column'
 
 module Mv
@@ -5,7 +6,7 @@ module Mv
     module Validation
       module Builder
         module Trigger
-          class Custom < Mv::Core::Validation::Builder::Custom
+          class Format < Mv::Sqlite::Validation::Builder::Format
             include TriggerColumn
           end
         end

@@ -1,4 +1,4 @@
-require 'mv/sqlite/validation/builder/trigger/mysql_datetime_values'
+require 'mv/sqlite/validation/builder/trigger/sqlite_datetime_values'
 require 'mv/sqlite/validation/builder/trigger/trigger_column'
 
 module Mv
@@ -7,7 +7,7 @@ module Mv
       module Builder
         module Trigger
           class Exclusion < Mv::Core::Validation::Builder::Exclusion
-            include MysqlDatetimeValues
+            include SqliteDatetimeValues
             include TriggerColumn
           end
         end
