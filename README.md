@@ -750,6 +750,10 @@ Define validations directly in DB as SQLite constraints and integrate them into 
 
 * Made it possible to use several mv-* drivers in the same project
 
+**(2.2.2)** (1 June, 2015)
+
+* Format validation
+
 ## Contributing
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
