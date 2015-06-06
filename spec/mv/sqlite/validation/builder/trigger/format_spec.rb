@@ -4,9 +4,9 @@ require 'mv/sqlite/validation/builder/trigger/format'
 
 describe Mv::Sqlite::Validation::Builder::Trigger::Format do
   def format(opts = {})
-    Mv::Sqlite::Validation::Format.new(:table_name,
-                                        :column_name,
-                                        { with: /exp/, message: 'is not valid' }.merge(opts))
+    Mv::Core::Validation::Format.new(:table_name,
+                                      :column_name,
+                                      { with: /exp/, message: 'is not valid' }.merge(opts))
   end
 
   describe "#conditions" do

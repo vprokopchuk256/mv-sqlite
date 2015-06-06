@@ -6,7 +6,7 @@ module Mv
     module Validation
       module Builder
         module Trigger
-          class Format < Mv::Sqlite::Validation::Builder::Format
+          class Format < Mv::Core::Validation::Builder::Format
             include TriggerColumn
           end
         end
