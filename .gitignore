@@ -42,4 +42,5 @@ pkg
 *.swp
 
 *_db
-/vendor
+
+vendor/**
