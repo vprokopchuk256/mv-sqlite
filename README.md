@@ -762,6 +762,10 @@ Define validations directly in DB as SQLite constraints and integrate them into 
 
 * Do not camel case column name in error message
 
+**(2.2.5)** (23 Feb, 2016)
+
+* Suppress exception while running db:schema:load
+
 ## Contributing
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
