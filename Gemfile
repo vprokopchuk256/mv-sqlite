@@ -1,8 +1,8 @@
 source "http://rubygems.org"
 
-gem 'railties', '~> 4.1'
+gem 'railties', '~> 5.0'
 gem "sqlite3", '~> 1.3'
-gem "mv-core", '~> 2.2.4'
+gem "mv-core", '~> 3.0'
 
 
 group :development do

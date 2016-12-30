@@ -8,7 +8,7 @@ describe 'Update validation scenarios' do
 
   describe 'update column in change_table block' do
     before do
-      Class.new(::ActiveRecord::Migration) do
+      Class.new(::ActiveRecord::Migration[5.0]) do
         def change
           create_table :table_name, id: false do |t|
             t.string :column_name, validates: { uniqueness: { as: :trigger, on: :create } }
@@ -18,7 +18,7 @@ describe 'Update validation scenarios' do
     end
 
     subject do
-       Class.new(::ActiveRecord::Migration) do
+       Class.new(::ActiveRecord::Migration[5.0]) do
         def change
           change_table :table_name, id: false do |t|
             t.change :column_name, :string, validates: { uniqueness: { as: :index } }
@@ -38,14 +38,14 @@ describe 'Update validation scenarios' do
     end
 
     it "updates migration validator" do
-      expect{ subject }.to change{Mv::Core::Db::MigrationValidator.first.options}.from(as: :trigger, on: :create) 
+      expect{ subject }.to change{Mv::Core::Db::MigrationValidator.first.options}.from(as: :trigger, on: :create)
                                                                                   .to(as: :index)
     end
   end
 
   describe 'standalone update column statement' do
     before do
-      Class.new(::ActiveRecord::Migration) do
+      Class.new(::ActiveRecord::Migration[5.0]) do
         def change
           create_table :table_name, id: false do |t|
             t.string :column_name, validates: { uniqueness: { as: :trigger, on: :create } }
@@ -55,7 +55,7 @@ describe 'Update validation scenarios' do
     end
 
     subject do
-       Class.new(::ActiveRecord::Migration) do
+       Class.new(::ActiveRecord::Migration[5.0]) do
         def change
           change_column :table_name, :column_name, :string, validates: { uniqueness: { as: :index } }
         end
@@ -73,7 +73,7 @@ describe 'Update validation scenarios' do
     end
 
     it "updates migration validator" do
-      expect{ subject }.to change{Mv::Core::Db::MigrationValidator.first.options}.from(as: :trigger, on: :create) 
+      expect{ subject }.to change{Mv::Core::Db::MigrationValidator.first.options}.from(as: :trigger, on: :create)
                                                                                   .to(as: :index)
     end
   end

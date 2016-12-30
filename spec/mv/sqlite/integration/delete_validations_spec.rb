@@ -9,17 +9,17 @@ describe 'Delete validation scenarios' do
   describe "change_table" do
     describe "udpate column" do
       before do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             create_table :table_name, id: false do |t|
-              t.string :column_name, validates: { length: { is: 5, on: :create} } 
+              t.string :column_name, validates: { length: { is: 5, on: :create} }
             end
           end
         end.new('TestMigration', '20141118164617').migrate(:up)
       end
 
       subject do
-         Class.new(::ActiveRecord::Migration) do
+         Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_table :table_name, id: false do |t|
               t.change :column_name, :string
@@ -40,18 +40,18 @@ describe 'Delete validation scenarios' do
 
     describe "remove column" do
       before do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             create_table :table_name, id: false do |t|
               t.string :column_name_1
-              t.string :column_name, validates: { length: { is: 5, on: :create} } 
+              t.string :column_name, validates: { length: { is: 5, on: :create} }
             end
           end
         end.new('TestMigration', '20141118164617').migrate(:up)
       end
 
       subject do
-         Class.new(::ActiveRecord::Migration) do
+         Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_table :table_name, id: false do |t|
               t.remove :column_name
@@ -74,18 +74,18 @@ describe 'Delete validation scenarios' do
   describe "standalone" do
     describe "remove column" do
       before do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             create_table :table_name, id: false do |t|
               t.string :column_name_1
-              t.string :column_name, validates: { length: { is: 5, on: :create} } 
+              t.string :column_name, validates: { length: { is: 5, on: :create} }
             end
           end
         end.new('TestMigration', '20141118164617').migrate(:up)
       end
 
       subject do
-         Class.new(::ActiveRecord::Migration) do
+         Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             remove_column :table_name, :column_name
           end
@@ -104,17 +104,17 @@ describe 'Delete validation scenarios' do
 
     describe "update column" do
       before do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             create_table :table_name, id: false do |t|
-              t.string :column_name, validates: { length: { is: 5, on: :create} } 
+              t.string :column_name, validates: { length: { is: 5, on: :create} }
             end
           end
         end.new('TestMigration', '20141118164617').migrate(:up)
       end
-      
+
       subject do
-         Class.new(::ActiveRecord::Migration) do
+         Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_column :table_name, :column_name, :string, {}
           end

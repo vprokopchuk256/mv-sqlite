@@ -14,7 +14,7 @@ describe Mv::Sqlite::ActiveRecord::ConnectionAdapters::Sqlite3AdapterDecorator d
   end
 
   subject do
-    Class.new(::ActiveRecord::Migration) do
+    Class.new(::ActiveRecord::Migration[5.0]) do
       def change
         change_table :table_name, id: false do |t|
           t.change :column_name, :string, validations: { length: { is: 5 } }

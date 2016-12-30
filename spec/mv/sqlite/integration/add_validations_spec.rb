@@ -17,13 +17,13 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_table :table_name, id: false do |t|
               t.string :column_name_1, validates: { length: { is: 5, on: :create} }
             end
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
 
@@ -45,13 +45,13 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_table :table_name, id: false do |t|
               t.change :column_name, :string, validates: { length: { is: 5, on: :create} }
             end
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
 
@@ -75,11 +75,11 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             add_column :table_name, :column_name_1, :string, validates: { length: { is: 5, on: :create} }
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
 
@@ -101,11 +101,11 @@ describe 'Add validation scenarios' do
       end
 
       let(:migration) do
-        Class.new(::ActiveRecord::Migration) do
+        Class.new(::ActiveRecord::Migration[5.0]) do
           def change
             change_column :table_name, :column_name, :string, validates: { length: { is: 5, on: :create} }
           end
-        end.new('TestMigration', '20141118164617') 
+        end.new('TestMigration', '20141118164617')
       end
 
 

@@ -10,9 +10,9 @@ describe "inclusion validation in trigger constraint begaviour" do
   before do
     Mv::Core::Services::CreateMigrationValidatorsTable.new.execute
 
-    db.drop_table(:table_name) if db.table_exists?(:table_name)
+    db.drop_table(:table_name) if db.data_source_exists?(:table_name)
 
-    Class.new(::ActiveRecord::Migration) do
+    Class.new(::ActiveRecord::Migration[5.0]) do
       def change
         create_table :table_name, id: false do |t|
           ##string
@@ -63,7 +63,7 @@ describe "inclusion validation in trigger constraint begaviour" do
 
   describe "with all nulls" do
     let(:opts) { {} }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -71,18 +71,18 @@ describe "inclusion validation in trigger constraint begaviour" do
 
   describe "with all valid values" do
     let(:opts) { {
-      string_array: 'a', 
-      string_range: 'a', 
-      integer_array: 1, 
-      integer_range: 1, 
+      string_array: 'a',
+      string_range: 'a',
+      integer_array: 1,
+      integer_range: 1,
       # datetime_array: DateTime.new(2011, 1, 1, 1, 1, 1),
       datetime_range: DateTime.new(2011, 1, 1, 1, 1, 2),
-      date_array: Date.new(2011, 1, 1), 
-      date_range: Date.new(2011, 1, 2), 
-      float_array: 1.1, 
+      date_array: Date.new(2011, 1, 1),
+      date_range: Date.new(2011, 1, 2),
+      float_array: 1.1,
       float_range: 1.2
     } }
-    
+
     it "doesn't raise an error" do
       expect{ subject }.not_to raise_error
     end
@@ -93,7 +93,7 @@ describe "inclusion validation in trigger constraint begaviour" do
     describe "float" do
       describe "array" do
         let(:opts) { { float_array: 1.0 } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/float_array_error/)
         end
@@ -101,7 +101,7 @@ describe "inclusion validation in trigger constraint begaviour" do
 
       describe "range" do
         let(:opts) { { float_range: 1.0 } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/float_range_error/)
         end
@@ -110,7 +110,7 @@ describe "inclusion validation in trigger constraint begaviour" do
     describe "date" do
       describe "array" do
         let(:opts) { { date_array: DateTime.new(2010, 1, 1) } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/date_array_error/)
         end
@@ -118,7 +118,7 @@ describe "inclusion validation in trigger constraint begaviour" do
 
       describe "range" do
         let(:opts) { { date_range: DateTime.new(2010, 1, 1) } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/date_range_error/)
         end
@@ -127,7 +127,7 @@ describe "inclusion validation in trigger constraint begaviour" do
     describe "datetime" do
       # describe "array" do
       #   let(:opts) { { datetime_array: DateTime.new(2010, 1, 1, 1, 1, 1) } }
-        
+
       #   it "raises an error with valid message" do
       #     expect{ subject }.to raise_error.with_message(/datetime_array_error/)
       #   end
@@ -135,7 +135,7 @@ describe "inclusion validation in trigger constraint begaviour" do
 
       describe "range" do
         let(:opts) { { datetime_range: DateTime.new(2010, 1, 1, 1, 1, 1) } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/datetime_range_error/)
         end
@@ -144,7 +144,7 @@ describe "inclusion validation in trigger constraint begaviour" do
     describe "integer" do
       describe "array" do
         let(:opts) { { integer_array: 4 } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/integer_array_error/)
         end
@@ -152,7 +152,7 @@ describe "inclusion validation in trigger constraint begaviour" do
 
       describe "range" do
         let(:opts) { { integer_range: 4 } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/integer_range_error/)
         end
@@ -161,7 +161,7 @@ describe "inclusion validation in trigger constraint begaviour" do
     describe "string" do
       describe "array" do
         let(:opts) { { string_array: 'c' } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/string_array_error/)
         end
@@ -169,7 +169,7 @@ describe "inclusion validation in trigger constraint begaviour" do
 
       describe "range" do
         let(:opts) { { string_range: 'c' } }
-        
+
         it "raises an error with valid message" do
           expect{ subject }.to raise_error.with_message(/string_range_error/)
         end
